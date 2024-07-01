@@ -1,10 +1,10 @@
 # Chain Reaction
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![GitHub stars](https://img.shields.io/github/stars/your-username/chainreaction)
-![GitHub forks](https://img.shields.io/github/forks/your-username/chainreaction)
-![GitHub issues](https://img.shields.io/github/issues/your-username/chainreaction)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/your-username/chainreaction)
+![GitHub stars](https://img.shields.io/github/stars/suprithvardhan/ChainReactiongame)
+![GitHub forks](https://img.shields.io/github/forks/suprithvardhan/ChainReactiongame)
+![GitHub issues](https://img.shields.io/github/issues/suprithvardhan/ChainReactiongame)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/suprithvardhan/ChainReactiongame)
 
 Welcome to the Chain Reaction game! This project is a graphical user interface (GUI) version of the Chain Reaction game developed using Next.js, Tailwind CSS, and TypeScript.
 
@@ -35,7 +35,7 @@ Chain Reaction is a strategy game that requires players to place orbs in cells. 
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/chainreaction.git
+    git clone https://github.com/suprithvardhan/ChainReactiongame.git
     cd chainreaction
     ```
 
@@ -73,9 +73,9 @@ This project has an interesting history. It initially started as a command-line 
 
 ## Contributors
 
-- **Your Name** - [GitHub Profile](https://github.com/your-username)
-- **Malavika** - [GitHub Profile](https://github.com/malavika-github-username)
-- **Anusha** - [GitHub Profile](https://github.com/anusha-github-username)
+- **Suprith** - [GitHub Profile](https://github.com/suprithvardhan)
+- **Malavika** 
+- **Anusha** 
 
 ## License
 
@@ -83,14 +83,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Thank you for checking out the Chain Reaction project! Contributions, issues, and feature requests are welcome. Feel free to check out the [issues page](https://github.com/your-username/chainreaction/issues).
+Thank you for checking out the Chain Reaction project! Contributions, issues, and feature requests are welcome. Feel free to check out the [issues page](https://github.com/suprithvardhan/ChainReactiongame/issues).
 
 ## Badges
 
-![GitHub contributors](https://img.shields.io/github/contributors/your-username/chainreaction)
-![GitHub last commit](https://img.shields.io/github/last-commit/your-username/chainreaction)
-![GitHub language count](https://img.shields.io/github/languages/count/your-username/chainreaction)
-![GitHub top language](https://img.shields.io/github/languages/top/your-username/chainreaction)
+![GitHub contributors](https://img.shields.io/github/contributors/suprithvardhan/ChainReactiongame)
+![GitHub last commit](https://img.shields.io/github/last-commit/suprithvardhan/ChainReactiongame)
+![GitHub language count](https://img.shields.io/github/languages/count/suprithvardhan/ChainReactiongame)
+![GitHub top language](https://img.shields.io/github/languages/top/suprithvardhan/ChainReactiongame)
 
 ## Future Enhancements
 
@@ -99,7 +99,7 @@ Thank you for checking out the Chain Reaction project! Contributions, issues, an
 - **Leaderboard:** Track and display top scores and players.
 - **Customizable Themes:** Provide different themes for the game board.
 
-![Demo GIF](https://link-to-your-demo-gif.gif)
+
 
 ---
 
@@ -112,5 +112,4 @@ If you like this project, please give it a ⭐️!
 ### Acknowledgements
 
 - Thanks to all contributors and supporters.
-- Special mention to [OpenAI](https://openai.com) for providing assistance through ChatGPT.
 
