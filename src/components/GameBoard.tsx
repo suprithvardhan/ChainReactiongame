@@ -4,7 +4,6 @@ import styles from './GameBoard.module.css';
 
 const MAX_PLAYERS = 8;
 const PLAYER_COLORS = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'cyan', 'magenta'] as const;
-const CELL_SIZE = 60; // px
 
 type Player = typeof PLAYER_COLORS[number];
 type Cell = { owner: Player | null; atoms: number };
@@ -42,8 +41,8 @@ const GameBoard: React.FC = () => {
     const handleResize = () => {
       if (settings.fillScreen && boardRef.current) {
         const { width, height } = boardRef.current.getBoundingClientRect();
-        const newCols = Math.floor(width / CELL_SIZE);
-        const newRows = Math.floor(height / CELL_SIZE);
+        const newCols = Math.floor(width / 40); // Use 40px as the base cell size
+        const newRows = Math.floor(height / 40);
         setSettings(prev => ({ ...prev, rows: newRows, cols: newCols }));
       }
     };
@@ -81,6 +80,10 @@ const GameBoard: React.FC = () => {
       if (gameResult.gameOver) {
         setGameOver(true);
         setWinner(gameResult.winner);
+        const winningBoard = newBoard.map(row => 
+          row.map(cell => ({ ...cell, owner: gameResult.winner }))
+        );
+        setBoard(winningBoard);
       } else {
         const nextPlayerIndex = (PLAYER_COLORS.indexOf(currentPlayer) + 1) % settings.players;
         setCurrentPlayer(PLAYER_COLORS[nextPlayerIndex]);
@@ -124,6 +127,13 @@ const GameBoard: React.FC = () => {
 
       setExplodingCells(currentExploding);
       setBoard([...board]);
+      
+      // Add shake effect for large explosions
+      if (explodedCells > settings.rows * settings.cols / 4) {
+        boardRef.current?.classList.add(styles.shake);
+        setTimeout(() => boardRef.current?.classList.remove(styles.shake), 500);
+      }
+
       await new Promise(resolve => setTimeout(resolve, 200));
 
       if (explodedCells >= totalCells) {
@@ -165,14 +175,19 @@ const GameBoard: React.FC = () => {
       setSettings(prev => ({ ...prev, fillScreen }));
       if (fillScreen && boardRef.current) {
         const { width, height } = boardRef.current.getBoundingClientRect();
-        const newCols = Math.floor(width / CELL_SIZE);
-        const newRows = Math.floor(height / CELL_SIZE);
+        const newCols = Math.floor(width / 40);
+        const newRows = Math.floor(height / 40);
         setSettings(prev => ({ ...prev, rows: newRows, cols: newCols, fillScreen }));
       }
     } else {
+      let newValue = parseInt(value, 10);
+      if (name === 'cols') {
+        const maxCols = Math.floor(window.innerWidth / 40);
+        newValue = Math.min(newValue, maxCols);
+      }
       setSettings(prev => ({
         ...prev,
-        [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : parseInt(value, 10)
+        [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : newValue
       }));
     }
   };
@@ -188,7 +203,7 @@ const GameBoard: React.FC = () => {
     setGameStarted(false);
     setSettings({
       rows: 6,
-      cols: 9,
+      cols: Math.min(9, Math.floor(window.innerWidth / 40)),
       players: 2,
       fillScreen: false,
     });
@@ -207,7 +222,7 @@ const GameBoard: React.FC = () => {
               </label>
               <label className={styles.settingLabel}>
                 Columns: {settings.cols}
-                <input type="range" name="cols" value={settings.cols} onChange={handleSettingsChange} min="3" max="20" />
+                <input type="range" name="cols" value={settings.cols} onChange={handleSettingsChange} min="3" max={Math.floor(window.innerWidth / 40)} />
               </label>
             </>
           )}
@@ -231,8 +246,8 @@ const GameBoard: React.FC = () => {
             ref={boardRef}
             className={`${styles.board} ${settings.fillScreen ? styles.fillScreen : ''}`} 
             style={{ 
-              gridTemplateColumns: `repeat(${settings.cols}, ${CELL_SIZE}px)`,
-              gridTemplateRows: `repeat(${settings.rows}, ${CELL_SIZE}px)`
+              gridTemplateColumns: `repeat(${settings.cols}, 1fr)`,
+              gridTemplateRows: `repeat(${settings.rows}, 1fr)`
             }}
           >
             {board.map((row, rowIndex) => (
@@ -245,7 +260,7 @@ const GameBoard: React.FC = () => {
                   {cell.atoms > 0 && (
                     <div className={styles.atoms}>
                       {Array(cell.atoms).fill(null).map((_, i) => (
-                        <div key={i} className={`${styles.atom} ${styles[cell.owner || '']}`} />
+                        <div key={i} className={`${styles.atom} ${styles[`atom${cell.owner || ''}`]}`} />
                       ))}
                     </div>
                   )}
@@ -255,7 +270,7 @@ const GameBoard: React.FC = () => {
           </div>
           <div className={styles.info}>
             {gameOver ? (
-              <p>{winner} wins!</p>
+              <p>Winner: <span className={`${styles[winner!]} ${styles.winner}`}>{winner}</span></p>
             ) : (
               <p>Current Player: <span className={styles[currentPlayer]}>{currentPlayer}</span></p>
             )}

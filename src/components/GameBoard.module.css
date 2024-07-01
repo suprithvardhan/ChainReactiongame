@@ -14,6 +14,12 @@
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
+@keyframes titlePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
 .settings {
   display: flex;
   flex-direction: column;
@@ -25,6 +31,12 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .settingLabel {
@@ -35,14 +47,20 @@
 
 .board {
   display: grid;
-  gap: 3px;
+  gap: 1px;
   background-color: rgba(255, 255, 255, 0.1);
-  padding: 3px;
+  padding: 1px;
   border-radius: 15px;
   width: fit-content;
   width: -moz-fit-content;
   margin: 0 auto;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  animation: boardAppear 0.5s ease-out;
+}
+
+@keyframes boardAppear {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .fillScreen {
@@ -63,7 +81,6 @@
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .cell:hover {
@@ -81,6 +98,13 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  animation: atomPulse 1s infinite alternate;
+}
+
+@keyframes atomPulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.2); }
 }
 
 .red { background-color: #ff4136; }
@@ -89,8 +113,17 @@
 .yellow { background-color: #ffdc00; }
 .purple { background-color: #b10dc9; }
 .orange { background-color: #ff851b; }
-.cyan { background-color: #00ffff; }
-.magenta { background-color: #ff00ff; }
+.cyan { background-color: #00cccc; }
+.magenta { background-color: #cc00cc; }
+
+.atomred { background-color: rgba(255, 65, 54, 0.5); }
+.atomgreen { background-color: rgba(46, 204, 64, 0.5); }
+.atomblue { background-color: rgba(0, 116, 217, 0.5); }
+.atomyellow { background-color: rgba(255, 220, 0, 0.5); }
+.atompurple { background-color: rgba(177, 13, 201, 0.5); }
+.atomorange { background-color: rgba(255, 133, 27, 0.5); }
+.atomcyan { background-color: rgba(0, 204, 204, 0.5); }
+.atommagenta { background-color: rgba(204, 0, 204, 0.5); }
 
 .info {
   margin-top: 30px;
@@ -99,6 +132,12 @@
   padding: 15px 30px;
   border-radius: 10px;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  animation: infoAppear 0.5s ease-out;
+}
+
+@keyframes infoAppear {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .button {
@@ -112,6 +151,13 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+  animation: buttonPop 0.3s ease-out;
+}
+
+@keyframes buttonPop {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 
 .button:hover {
@@ -128,4 +174,77 @@
   0% { transform: scale(1); opacity: 1; }
   50% { transform: scale(1.5); opacity: 0.5; }
   100% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .board {
+    gap: 0;
+    padding: 0;
+  }
+
+  .cell {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+  }
+
+  .atom {
+    width: 6px;
+    height: 6px;
+  }
+
+  .info {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+
+  .button {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}
+
+/* New animations */
+@keyframes cellAppear {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.cell {
+  animation: cellAppear 0.3s ease-out;
+}
+
+@keyframes winnerCelebration {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.winner {
+  animation: winnerCelebration 0.5s ease-in-out infinite;
+}
+
+@keyframes atomSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.atom {
+  animation: atomSpin 2s linear infinite, atomPulse 1s infinite alternate;
+}
+
+@keyframes boardShake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(5px); }
+  50% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+.board.shake {
+  animation: boardShake 0.5s ease-in-out;
 }
