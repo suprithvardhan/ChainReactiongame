@@ -1,5 +1,11 @@
 # Chain Reaction
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![GitHub stars](https://img.shields.io/github/stars/your-username/chainreaction)
+![GitHub forks](https://img.shields.io/github/forks/your-username/chainreaction)
+![GitHub issues](https://img.shields.io/github/issues/your-username/chainreaction)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/your-username/chainreaction)
+
 Welcome to the Chain Reaction game! This project is a graphical user interface (GUI) version of the Chain Reaction game developed using Next.js, Tailwind CSS, and TypeScript.
 
 ## Table of Contents
@@ -21,6 +27,9 @@ Chain Reaction is a strategy game that requires players to place orbs in cells. 
 - **Responsive Design:** The game board adjusts to different screen sizes.
 - **Dynamic Gameplay:** Handles cell clicks, explosions, and turn-based logic.
 - **Visual Feedback:** Clear visual indicators for player turns and game over states.
+- **Multiplayer Support:** Play with friends on the same device.
+- **Undo Feature:** Allows players to undo their last move.
+- **Game Restart:** Restart the game at any time.
 
 ## Installation
 
@@ -75,3 +84,33 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 Thank you for checking out the Chain Reaction project! Contributions, issues, and feature requests are welcome. Feel free to check out the [issues page](https://github.com/your-username/chainreaction/issues).
+
+## Badges
+
+![GitHub contributors](https://img.shields.io/github/contributors/your-username/chainreaction)
+![GitHub last commit](https://img.shields.io/github/last-commit/your-username/chainreaction)
+![GitHub language count](https://img.shields.io/github/languages/count/your-username/chainreaction)
+![GitHub top language](https://img.shields.io/github/languages/top/your-username/chainreaction)
+
+## Future Enhancements
+
+- **AI Opponent:** Implement an AI for single-player mode.
+- **Online Multiplayer:** Allow players to compete with others online.
+- **Leaderboard:** Track and display top scores and players.
+- **Customizable Themes:** Provide different themes for the game board.
+
+![Demo GIF](https://link-to-your-demo-gif.gif)
+
+---
+
+### Show Your Support
+
+If you like this project, please give it a ⭐️!
+
+---
+
+### Acknowledgements
+
+- Thanks to all contributors and supporters.
+- Special mention to [OpenAI](https://openai.com) for providing assistance through ChatGPT.
+
