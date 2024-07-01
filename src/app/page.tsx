@@ -1,5 +1,8 @@
-// pages/index.tsx
-import GameBoard from "@/components/GameBoard";
+import dynamic from 'next/dynamic';
+
+const GameBoard = dynamic(() => import('@/components/GameBoard'), {
+  ssr: false,
+});
 
 const Home = () => {
   return (

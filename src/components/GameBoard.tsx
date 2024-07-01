@@ -30,6 +30,23 @@ const GameBoard: React.FC = () => {
   });
   const [explodingCells, setExplodingCells] = useState<[number, number][]>([]);
   const boardRef = useRef<HTMLDivElement>(null);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleResize = () => {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      };
+
+      window.addEventListener('resize', handleResize);
+      handleResize();
+
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
   useEffect(() => {
     if (gameStarted) {
@@ -38,20 +55,13 @@ const GameBoard: React.FC = () => {
   }, [gameStarted, settings]);
 
   useEffect(() => {
-    const handleResize = () => {
-      if (settings.fillScreen && boardRef.current) {
-        const { width, height } = boardRef.current.getBoundingClientRect();
-        const newCols = Math.floor(width / 40); // Use 40px as the base cell size
-        const newRows = Math.floor(height / 40);
-        setSettings(prev => ({ ...prev, rows: newRows, cols: newCols }));
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize();
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, [settings.fillScreen]);
+    if (settings.fillScreen && boardRef.current) {
+      const { width, height } = boardRef.current.getBoundingClientRect();
+      const newCols = Math.floor(width / 40);
+      const newRows = Math.floor(height / 40);
+      setSettings(prev => ({ ...prev, rows: newRows, cols: newCols }));
+    }
+  }, [settings.fillScreen, windowSize]);
 
   const initializeBoard = () => {
     const newBoard: Board = Array(settings.rows).fill(null).map(() => 
@@ -128,7 +138,6 @@ const GameBoard: React.FC = () => {
       setExplodingCells(currentExploding);
       setBoard([...board]);
       
-      // Add shake effect for large explosions
       if (explodedCells > settings.rows * settings.cols / 4) {
         boardRef.current?.classList.add(styles.shake);
         setTimeout(() => boardRef.current?.classList.remove(styles.shake), 500);
@@ -173,16 +182,10 @@ const GameBoard: React.FC = () => {
     if (name === 'fillScreen') {
       const fillScreen = (e.target as HTMLInputElement).checked;
       setSettings(prev => ({ ...prev, fillScreen }));
-      if (fillScreen && boardRef.current) {
-        const { width, height } = boardRef.current.getBoundingClientRect();
-        const newCols = Math.floor(width / 40);
-        const newRows = Math.floor(height / 40);
-        setSettings(prev => ({ ...prev, rows: newRows, cols: newCols, fillScreen }));
-      }
     } else {
       let newValue = parseInt(value, 10);
       if (name === 'cols') {
-        const maxCols = Math.floor(window.innerWidth / 40);
+        const maxCols = Math.floor(windowSize.width / 40);
         newValue = Math.min(newValue, maxCols);
       }
       setSettings(prev => ({
@@ -203,7 +206,7 @@ const GameBoard: React.FC = () => {
     setGameStarted(false);
     setSettings({
       rows: 6,
-      cols: Math.min(9, Math.floor(window.innerWidth / 40)),
+      cols: Math.min(9, Math.floor(windowSize.width / 40)),
       players: 2,
       fillScreen: false,
     });
@@ -222,7 +225,7 @@ const GameBoard: React.FC = () => {
               </label>
               <label className={styles.settingLabel}>
                 Columns: {settings.cols}
-                <input type="range" name="cols" value={settings.cols} onChange={handleSettingsChange} min="3" max={Math.floor(window.innerWidth / 40)} />
+                <input type="range" name="cols" value={settings.cols} onChange={handleSettingsChange} min="3" max={Math.floor(windowSize.width / 40)} />
               </label>
             </>
           )}
